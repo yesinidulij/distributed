@@ -41,10 +41,12 @@ public class BudgetServer {
             
             while (true) {
                String budgetName = (String) input.readObject();
+               
                double amount = input.readDouble();
                
                synchronized (budgets) {
                   Budget budget = budgets.get(budgetName);
+                  System.out.println(budgets.get(budgetName));
                   if (budget == null) {
                      budget = new Budget(budgetName, amount);
                      budgets.put(budgetName, budget);
@@ -56,6 +58,7 @@ public class BudgetServer {
                }
                
                output.writeObject(budgets.get(budgetName));
+               output.reset();
             }
          } catch (IOException | ClassNotFoundException e) {
             e.printStackTrace();
